@@ -10,9 +10,14 @@ let guid = () => {
 const todoList = document.getElementById("todo-list");
 const addButton = document.getElementById("add-button");
 const addInput = document.getElementById("add-input");
-const todos = [];
+const todos = localStorage.getItem("todoList") !== null ? JSON.parse(localStorage.getItem("todoList")) : [];
+for (let i = 0; i < todos.length; i++) {
+    console.log(todos[i], i);
+    const todoElement = createTodoElement(todos[i], i);
+    todoList.innerHTML += todoElement;
+}
 addButton.addEventListener("click", addTodo);
-addInput.addEventListener("keyup", function(event) {
+addInput.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         addTodo();
@@ -28,7 +33,7 @@ function createTodoInnerHTML(todo) {
 
 function createTodoElement(todo, todoIndex) {
     const todoLiInnerHTML = createTodoInnerHTML(todo);
-    return `<li class="li-el bg-li-${todoIndex % 2 === 0?'light':'dark'}" id="${todo.id}">${todoLiInnerHTML}</li>`;
+    return `<li class="li-el bg-li-${todoIndex % 2 === 0 ? 'light' : 'dark'}" id="${todo.id}">${todoLiInnerHTML}</li>`;
 }
 
 function addTodo() {
@@ -39,13 +44,15 @@ function addTodo() {
         content: todoContent
     }
     todos.push(todo);
-    todoList.innerHTML += createTodoElement(todo, todos.length-1);
+    localStorage.setItem("todoList", JSON.stringify(todos));
+    todoList.innerHTML += createTodoElement(todo, todos.length - 1);
     addInput.value = "";
 }
 
 function deleteTodo(id) {
     const indexToDelete = todos.findIndex(todo => id === todo.id);
     todos.splice(indexToDelete);
+    localStorage.setItem("todoList", JSON.stringify(todos));
     const liElementToDelete = document.getElementById(id);
     liElementToDelete.remove();
 }
@@ -64,6 +71,7 @@ function editDone(id) {
     if (editedContent === "") return;
     const todoIndex = todos.findIndex(todo => id === todo.id);
     todos[todoIndex].content = editedContent;
+    localStorage.setItem("todoList", JSON.stringify(todos));
     const liElementToEdit = document.getElementById(id);
     liElementToEdit.innerHTML = createTodoInnerHTML(todos[todoIndex]);
 }
