@@ -51,7 +51,8 @@ function addTodo() {
 
 function deleteTodo(id) {
     const indexToDelete = todos.findIndex(todo => id === todo.id);
-    todos.splice(indexToDelete);
+    todos.splice(indexToDelete, 1);
+    console.log(todos);
     localStorage.setItem("todoList", JSON.stringify(todos));
     const liElementToDelete = document.getElementById(id);
     liElementToDelete.remove();

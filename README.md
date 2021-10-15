@@ -5,6 +5,7 @@ __La Todo__ is a web to do application with which you can add, delete and edit t
 - Add
 - Delete
 - Edit
+- Local Storage
 
 ### Add
 Well, the add function is pretty straigthforward: It adds to dos. You can do this by either clicking the `Add` button or by pressing Enter.
@@ -20,6 +21,9 @@ Once you add a todo, there are two other functions that you can utilize: Edit an
 The `Edit` button allows you to edit your to dos and is represented with a pen-shaped icon. When you click it, the list's appearance changes at first. Instead of the inital `Edit` and `Delete` buttons, you have a `Done` button, repsented with a tick. When you are done with editing you click the `Done` button and the list returns to its initial state.
 
 <img src="assets/webtodo2.PNG" alt="Edit Function" title="Edit Function"/>
+
+### Local Storage
+I stored todo objects in the local storage, so the to dos don't dissapear when you refresh or exit the page.
 
 <hr>
 
